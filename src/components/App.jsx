@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
 import { Container, Title, SubTitle } from './App.styled';
@@ -23,6 +23,10 @@ export const App = () => {
   const [contacts, setContacts] = useState(getInitialContacts);
   const [filter, setFilter] = useState('');
 
+  useEffect(() => {
+    window.localStorage.setItem(LsKey, JSON.stringify(contacts));
+  }, [contacts]);
+
   const addContact = values => {
     const contact = { ...values, id: nanoid() };
     if (
@@ -46,25 +50,6 @@ export const App = () => {
     );
   };
 
-  // componentDidMount() {
-  //   const localData = localStorage.getItem('contacts');
-  //   if (localData && JSON.parse(localData).length > 0) {
-  //     this.setState({ contacts: JSON.parse(localData) });
-  //   }
-  // }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.contacts.length !== this.state.contacts.length) {
-  //     localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-  //   }
-  // }
-
-  // render() {
-  //   const { contacts, filter } = this.state;
-  //   const visibleContacts = contacts.filter(contact => {
-  //     const hasName = contact.name.toLowerCase().includes(filter.toLowerCase());
-  //     return hasName;
-  //   });
   const visibleContacts = contacts.filter(contact => {
     const hasName = contact.name.toLowerCase().includes(filter.toLowerCase());
     return hasName;
