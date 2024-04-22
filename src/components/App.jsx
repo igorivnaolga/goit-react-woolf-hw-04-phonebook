@@ -20,7 +20,7 @@ const initialContacts = [
 ];
 
 export const App = () => {
-  const [contacts, setContacts] = useState(getInitialContacts);
+  const [contacts, setContacts] = useState(getInitialContacts());
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
